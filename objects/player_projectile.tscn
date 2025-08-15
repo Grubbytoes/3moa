@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckkl2yy2s4jna"]
+
+[ext_resource type="Texture2D" uid="uid://dumhw8y6j3dhv" path="res://media/textures/placeholders.png" id="1_6g18h"]
+[ext_resource type="Script" uid="uid://dvhgkqkah5l63" path="res://objects/player_projectile.gd" id="1_v7kvg"]
+[ext_resource type="Shape2D" uid="uid://cwml5heh1awca" path="res://resources/small_projectile_collision_shape.tres" id="3_kuu40"]
+
+[node name="PlayerProjectile" type="Node2D"]
+z_index = -1
+script = ExtResource("1_v7kvg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_6g18h")
+region_enabled = true
+region_rect = Rect2(16, 32, 16, 16)
+
+[node name="Lifetime" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = ExtResource("3_kuu40")
+
+[connection signal="timeout" from="Lifetime" to="." method="queue_free"]
+[connection signal="body_entered" from="Area2D" to="." method="hit_body"]

@@ -1,0 +1,17 @@
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://d2ieyjp1w6y7n"]
+
+[ext_resource type="PackedScene" uid="uid://byvh11y1h4hif" path="res://objects/default_block.tscn" id="1_uy2wx"]
+[ext_resource type="Texture2D" uid="uid://dumhw8y6j3dhv" path="res://media/textures/placeholders.png" id="2_6mr50"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_6mr50"]
+scenes/1/scene = ExtResource("1_uy2wx")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_aqnvc"]
+texture = ExtResource("2_6mr50")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[resource]
+physics_layer_0/collision_layer = 1
+sources/1 = SubResource("TileSetScenesCollectionSource_6mr50")
+sources/2 = SubResource("TileSetAtlasSource_aqnvc")

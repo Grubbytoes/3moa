@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bt4t6f8pxy33k"]
+
+[ext_resource type="Script" uid="uid://3roqsjbso263" path="res://levels/level.gd" id="1_wevqg"]
+[ext_resource type="PackedScene" uid="uid://br0ddatrvg8cl" path="res://objects/terrain_layer.tscn" id="2_ew5uy"]
+
+[node name="BaseLevel" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_wevqg")
+
+[node name="Cam" type="Camera2D" parent="."]
+anchor_mode = 0
+zoom = Vector2(2, 2)
+
+[node name="TerrainLayer" parent="." instance=ExtResource("2_ew5uy")]

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://byvh11y1h4hif"]
+
+[ext_resource type="Texture2D" uid="uid://dumhw8y6j3dhv" path="res://media/textures/placeholders.png" id="1_2km37"]
+[ext_resource type="Shape2D" uid="uid://icoox5hmjosx" path="res://resources/block_collision_shape.tres" id="2_hoefg"]
+
+[node name="DefaultBlock" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_2km37")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = ExtResource("2_hoefg")
