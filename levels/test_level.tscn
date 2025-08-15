@@ -1,12 +1,8 @@
-[gd_scene load_steps=3 format=4 uid="uid://do4fcerp2ah5q"]
+[gd_scene load_steps=2 format=4 uid="uid://do4fcerp2ah5q"]
 
 [ext_resource type="PackedScene" uid="uid://bt4t6f8pxy33k" path="res://levels/base_level.tscn" id="1_2venv"]
-[ext_resource type="PackedScene" uid="uid://cago1gspn6vcd" path="res://objects/player.tscn" id="2_x25rp"]
 
 [node name="BaseLevel" instance=ExtResource("1_2venv")]
 
-[node name="Player" parent="." index="1" instance=ExtResource("2_x25rp")]
-position = Vector2(448, 144)
-
-[node name="TerrainLayer" parent="." index="2"]
+[node name="TerrainLayer" parent="." index="1"]
 tile_map_data = PackedByteArray("AAABAAEAAgAAAAAAAAABAAIAAgAAAAAAAAABAAMAAgAAAAAAAAACAAEAAgAAAAAAAAACAAIAAgAAAAAAAAACAAMAAgAAAAAAAAADAAEAAgAAAAAAAAADAAIAAgAAAAAAAAADAAMAAgAAAAAAAAADAAoAAgAAAAEAAAADAAsAAgAAAAEAAAADAAwAAgAAAAEAAAAEAAoAAgAAAAEAAAAEAAsAAgAAAAEAAAAEAAwAAgAAAAEAAAAFAAoAAgAAAAEAAAAFAAsAAgAAAAEAAAAFAAwAAgAAAAEAAAA=")

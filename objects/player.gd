@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody2D
 
 const base_thrust = 150

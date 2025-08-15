@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bt4t6f8pxy33k"]
+[gd_scene load_steps=6 format=3 uid="uid://bt4t6f8pxy33k"]
 
 [ext_resource type="Script" uid="uid://3roqsjbso263" path="res://levels/level.gd" id="1_wevqg"]
+[ext_resource type="PackedScene" uid="uid://cago1gspn6vcd" path="res://objects/player.tscn" id="2_63c5o"]
 [ext_resource type="PackedScene" uid="uid://br0ddatrvg8cl" path="res://objects/terrain_layer.tscn" id="2_ew5uy"]
+[ext_resource type="PackedScene" uid="uid://b74fk7djfn7od" path="res://objects/game_master.tscn" id="4_satuh"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ew5uy"]
 
@@ -9,9 +11,19 @@
 texture_filter = 1
 script = ExtResource("1_wevqg")
 
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="GameMaster" parent="." instance=ExtResource("4_satuh")]
+
+[node name="Player" parent="." instance=ExtResource("2_63c5o")]
+position = Vector2(288, 80)
+
 [node name="Cam" type="Camera2D" parent="."]
-anchor_mode = 0
 zoom = Vector2(2, 2)
+limit_left = 0
+limit_top = 0
+limit_right = 576
+drag_vertical_enabled = true
 
 [node name="TerrainLayer" parent="." instance=ExtResource("2_ew5uy")]
 
@@ -36,15 +48,6 @@ collision_layer = 128
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBoundries/East"]
-shape = SubResource("WorldBoundaryShape2D_ew5uy")
-
-[node name="South" type="StaticBody2D" parent="PlayerBoundries"]
-position = Vector2(0, 324)
-collision_layer = 128
-collision_mask = 128
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBoundries/South"]
 shape = SubResource("WorldBoundaryShape2D_ew5uy")
 
 [node name="West" type="StaticBody2D" parent="PlayerBoundries"]

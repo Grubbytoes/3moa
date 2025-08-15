@@ -1,3 +1,4 @@
+class_name HUD
 extends Control
 
 # Just for now, I am going to contain some of the actual game logic in the HUD script
