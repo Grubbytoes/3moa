@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bt4t6f8pxy33k"]
+[gd_scene load_steps=4 format=3 uid="uid://bt4t6f8pxy33k"]
 
 [ext_resource type="Script" uid="uid://3roqsjbso263" path="res://levels/level.gd" id="1_wevqg"]
 [ext_resource type="PackedScene" uid="uid://br0ddatrvg8cl" path="res://objects/terrain_layer.tscn" id="2_ew5uy"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ew5uy"]
 
 [node name="BaseLevel" type="Node2D"]
 texture_filter = 1
@@ -12,3 +14,45 @@ anchor_mode = 0
 zoom = Vector2(2, 2)
 
 [node name="TerrainLayer" parent="." instance=ExtResource("2_ew5uy")]
+
+[node name="PlayerBoundries" type="Node2D" parent="."]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="North" type="StaticBody2D" parent="PlayerBoundries"]
+position = Vector2(576, 0)
+rotation = 3.14159
+collision_layer = 128
+collision_mask = 128
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBoundries/North"]
+shape = SubResource("WorldBoundaryShape2D_ew5uy")
+
+[node name="East" type="StaticBody2D" parent="PlayerBoundries"]
+position = Vector2(576, 0)
+rotation = -1.5708
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBoundries/East"]
+shape = SubResource("WorldBoundaryShape2D_ew5uy")
+
+[node name="South" type="StaticBody2D" parent="PlayerBoundries"]
+position = Vector2(0, 324)
+collision_layer = 128
+collision_mask = 128
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBoundries/South"]
+shape = SubResource("WorldBoundaryShape2D_ew5uy")
+
+[node name="West" type="StaticBody2D" parent="PlayerBoundries"]
+position = Vector2(0, 324)
+rotation = 1.57079
+collision_layer = 128
+collision_mask = 128
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBoundries/West"]
+shape = SubResource("WorldBoundaryShape2D_ew5uy")

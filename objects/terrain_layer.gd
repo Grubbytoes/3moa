@@ -14,10 +14,8 @@ func hit_tile_at(point_of_collision: Vector2):
 
 	# I think this is a rough way of doing it but we'll see
 	var hardness: int = hit_tile.get_custom_data("hardness")
-	print(hardness)
 
 	if 0 >= hardness:
 		erase_cell(hit_tile_coords)
 	else:
-		print("degrading tile")
 		set_cell(hit_tile_coords, 2, Vector2i(0, hardness - 1))
