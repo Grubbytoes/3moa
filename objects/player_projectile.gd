@@ -27,7 +27,7 @@ func hit_body(body: Node2D) -> void:
 	# as of now, this will not work with scrolling or offset tiles
 	var point_of_collision = position + (velocity.normalized() * (radius + 1))
 	terrain_layer.hit_tile_at(point_of_collision)
-	
+
 	destroy_projectile()
 
 
