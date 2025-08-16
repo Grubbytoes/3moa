@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgtqy4a8fg4js"]
+
+[ext_resource type="Script" uid="uid://toks7ux1ahhu" path="res://objects/collectables/base_collectable.gd" id="1_onqdd"]
+[ext_resource type="Shape2D" uid="uid://cwml5heh1awca" path="res://resources/small_projectile_collision_shape.tres" id="2_b0d24"]
+
+[node name="Collectable" type="Node2D"]
+script = ExtResource("1_onqdd")
+
+[node name="PickupArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+shape = ExtResource("2_b0d24")
+
+[connection signal="body_entered" from="PickupArea" to="." method="on_pickup_body_entered"]

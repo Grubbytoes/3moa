@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://qucdfox2idic"]
+[gd_scene load_steps=4 format=3 uid="uid://qucdfox2idic"]
 
 [ext_resource type="Script" uid="uid://cra1wbin8bc1a" path="res://objects/ui_elements/hud.gd" id="1_dbqkm"]
 [ext_resource type="Script" uid="uid://co24m2tc2ue00" path="res://objects/ui_elements/time_display.gd" id="2_vs5mn"]
+[ext_resource type="Script" uid="uid://34cs8pr3o7wc" path="res://objects/ui_elements/score_counter.gd" id="3_vs5mn"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -46,13 +47,14 @@ text = "00:00"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ScoreCounter" type="Control" parent="."]
+[node name="ScoreDisplay" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("3_vs5mn")
 
-[node name="Label" type="Label" parent="ScoreCounter"]
+[node name="Score" type="Label" parent="ScoreDisplay"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
-text = "SCORE: 0000"
+text = "SCORE : 000000"

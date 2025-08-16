@@ -1,8 +1,16 @@
-[gd_scene load_steps=2 format=4 uid="uid://do4fcerp2ah5q"]
+[gd_scene load_steps=4 format=4 uid="uid://do4fcerp2ah5q"]
 
 [ext_resource type="PackedScene" uid="uid://bt4t6f8pxy33k" path="res://levels/base_level.tscn" id="1_2venv"]
+[ext_resource type="PackedScene" uid="uid://c3q53gag466u1" path="res://objects/collectables/air_bubble_collectable.tscn" id="2_x25rp"]
+[ext_resource type="PackedScene" uid="uid://bndes1mgkgwtv" path="res://objects/collectables/score_collectable.tscn" id="3_gmgay"]
 
 [node name="BaseLevel" instance=ExtResource("1_2venv")]
 
-[node name="TerrainLayer" parent="." index="1"]
+[node name="TerrainLayer" parent="." index="4"]
 tile_map_data = PackedByteArray("AAABAAEAAgAAAAAAAAABAAIAAgAAAAAAAAABAAMAAgAAAAAAAAACAAEAAgAAAAAAAAACAAIAAgAAAAAAAAACAAMAAgAAAAAAAAADAAEAAgAAAAAAAAADAAIAAgAAAAAAAAADAAMAAgAAAAAAAAADAAoAAgAAAAEAAAADAAsAAgAAAAEAAAADAAwAAgAAAAEAAAAEAAoAAgAAAAEAAAAEAAsAAgAAAAEAAAAEAAwAAgAAAAEAAAAFAAoAAgAAAAEAAAAFAAsAAgAAAAEAAAAFAAwAAgAAAAEAAAA=")
+
+[node name="AirBubbleCollectable" parent="." index="6" instance=ExtResource("2_x25rp")]
+position = Vector2(336, 144)
+
+[node name="ScoreCollectable" parent="." index="7" instance=ExtResource("3_gmgay")]
+position = Vector2(256, 256)

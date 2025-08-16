@@ -18,6 +18,10 @@ config/features=PackedStringArray("4.4", "Mobile")
 
 window/stretch/mode="viewport"
 
+[global_group]
+
+player="the player character object"
+
 [input]
 
 action_a={

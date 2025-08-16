@@ -7,7 +7,7 @@
 radius = 8.0
 height = 22.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 129
 script = ExtResource("1_ykyjo")
 
