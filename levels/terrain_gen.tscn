@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://buhy83qcrr0kp"]
+
+[ext_resource type="PackedScene" uid="uid://bt4t6f8pxy33k" path="res://levels/base_level.tscn" id="1_yc5vx"]
+[ext_resource type="Script" uid="uid://cqgcdj4s6334y" path="res://objects/world_and_terrain/terrain_generator.gd" id="2_wm2hp"]
+
+[node name="BaseLevel" instance=ExtResource("1_yc5vx")]
+
+[node name="TerrainGenerator" type="Node" parent="TerrainLayer" index="0"]
+script = ExtResource("2_wm2hp")
+noise_zoom = 10

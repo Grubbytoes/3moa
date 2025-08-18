@@ -5,6 +5,12 @@ const TILE_SIZE = 32
 
 var tile_damage := {}
 
+
+func place_tile(x, y, _type=0):
+	#! for now this only places basic tiles, will improve on this
+	set_cell(Vector2i(x, y), 0, Vector2i.ZERO)
+
+
 func hit_tile_at(point_of_collision: Vector2):
 	var hit_tile_coords = Vector2i(
 		floor((point_of_collision.x - position.x) / TILE_SIZE),
@@ -35,7 +41,3 @@ func hit_tile_at(point_of_collision: Vector2):
 
 func reset_tile_damage(key: Vector2i) -> bool:
 	return tile_damage.erase(key)
-
-
-class TileDamageEntry:
-	pass
