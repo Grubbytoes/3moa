@@ -8,3 +8,5 @@
 [node name="TerrainGenerator" type="Node" parent="TerrainLayer" index="0"]
 script = ExtResource("2_wm2hp")
 noise_zoom = 15
+
+[connection signal="next_chunk_needed" from="." to="TerrainLayer/TerrainGenerator" method="generate_chunk"]

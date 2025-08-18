@@ -6,10 +6,11 @@ static var TILE_SIZE = 32
 # TODO it may be a good idea to pull this out to its own class or node
 var tile_damage := {}
 var damage_manager := DamageManager.new()
-
+var effects_manager := EffectManager.new()
 
 func _ready():
 	add_child(damage_manager)
+	add_child(effects_manager)
 
 
 func place_tile(x, y, _type=0):
@@ -24,16 +25,14 @@ func hit_tile_at(point_of_collision: Vector2):
 		floor((point_of_collision.x - position.x) / TILE_SIZE),
 		floor((point_of_collision.y - position.y) / TILE_SIZE)
 	)
-	var hit_tile := get_cell_tile_data(hit_tile_coords)
 
-	if !hit_tile:
-		return
-	elif damage_manager.can_destroy_tile(hit_tile_coords):
+	if damage_manager.can_destroy_tile(hit_tile_coords):
 		destroy_tile(hit_tile_coords)
 
 
 func destroy_tile(coords):
 	erase_cell(coords)
+	effects_manager.destroy_tile_effect(coords)
 
 
 # This class is responsible for answering the question "is this tile destroyed yet" when it is hit with a projectile
@@ -67,3 +66,13 @@ class DamageManager extends Node:
 			return tile_data.get_custom_data("hardness")
 		else:
 			return -1
+		
+
+# TODO
+class EffectManager extends Node2D:
+	
+	func destroy_tile_effect(coords: Vector2i):
+		pass
+	
+	func damage_tile_effect(coords: Vector2i):
+		pass

@@ -10,12 +10,13 @@ const CHUNK_SIZE = 18
 func _ready():
     print("just testing")
     noise_generator.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
+    generate_chunk(0)
     generate_chunk(1)
-    generate_chunk(2)
 
 
 func generate_chunk(y_index = 0):  
-    # iterate through each pixel 
+    print("Generating chunk %s" % y_index)
+
     for x in range(CHUNK_SIZE): 
         for false_y in range(CHUNK_SIZE):
             var y = false_y + (CHUNK_SIZE * y_index)

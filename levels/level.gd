@@ -1,7 +1,13 @@
 class_name Level
 extends Node2D
 
+signal next_chunk_needed(chunk_no: int)
+
+const CHUNK_HEIGHT = 18 * 32
+
 var hud: HUD
+var next_chunk_needed_at := CHUNK_HEIGHT
+var chunk_count = 2
 
 @onready var cam := get_node("Cam") as Camera2D
 @onready var player := get_node("Player") as Player
@@ -20,6 +26,13 @@ func _ready():
 	cam.reparent(player, false) # very quick and dirty but we move
 
 	print("beep")
+
+
+func _physics_process(delta):
+	if next_chunk_needed_at < player.position.y:
+		next_chunk_needed.emit(chunk_count)
+		chunk_count += 1
+		next_chunk_needed_at += CHUNK_HEIGHT
 
 
 func setup_hud():
