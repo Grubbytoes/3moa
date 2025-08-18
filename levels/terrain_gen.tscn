@@ -7,4 +7,4 @@
 
 [node name="TerrainGenerator" type="Node" parent="TerrainLayer" index="0"]
 script = ExtResource("2_wm2hp")
-noise_zoom = 10
+noise_zoom = 15

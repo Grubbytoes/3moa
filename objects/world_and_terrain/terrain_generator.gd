@@ -10,7 +10,6 @@ const CHUNK_SIZE = 18
 func _ready():
     print("just testing")
     noise_generator.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
-    generate_chunk()
     generate_chunk(1)
     generate_chunk(2)
 
@@ -21,8 +20,6 @@ func generate_chunk(y_index = 0):
         for false_y in range(CHUNK_SIZE):
             var y = false_y + (CHUNK_SIZE * y_index)
             var v = (noise_generator.get_noise_2d(x * noise_zoom, y * noise_zoom) + 1) / 2
-
-            print(v)
 
             if .5 <= v: 
                 terrain_layer.place_tile(x, y)
