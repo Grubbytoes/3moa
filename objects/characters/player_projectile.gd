@@ -1,7 +1,7 @@
 class_name PlayerProjectile
 extends Node2D
 
-const speed = 480
+const speed = 540
 
 var velocity = Vector2.ZERO
 
