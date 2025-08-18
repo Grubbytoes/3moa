@@ -9,6 +9,27 @@ func chunk_range() -> ChunkIterator:
 	return ChunkIterator.new()
 
 
+class ChunkArray:
+	var _core_array := PackedInt32Array()
+
+	func _init(initial = 0):
+		_core_array.resize(CHUNK_AREA)
+		_core_array.fill(initial)
+	
+	func getv(pos: Vector2i):
+		return _core_array[_idx(pos)]
+
+	func setv(pos: Vector2i, v):
+		_core_array.set(_idx(pos), v)
+
+	func _idx(pos: Vector2i) -> int:
+		var i = pos.x + pos.y * CHUNK_SIZE
+		
+		if i >= CHUNK_AREA:
+			printerr("%s is out of bounds for ChunkArray" % pos)
+		
+		return i
+
 class ChunkIterator:
 	var value: Vector2i
 

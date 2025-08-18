@@ -9,10 +9,5 @@ var current_level: Level = null
 @onready var level_stage = get_node("LevelStage") as Node
 
 func _ready():
-
-    for pos in ChunkTools.chunk_range():
-        print(pos)
-
-
     current_level = levels[1].instantiate()
     level_stage.add_child(current_level)   

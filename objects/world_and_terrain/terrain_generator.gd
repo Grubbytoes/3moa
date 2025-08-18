@@ -12,13 +12,29 @@ func _ready():
     generate_chunk(1)
 
 
-func generate_chunk(y_index = 0):  
-    print("Generating chunk %s" % y_index)
+func generate_chunk(y_index = 0):
+    var y_offset = y_index * ChunkTools.CHUNK_SIZE
+    var placement_layer = generate_placement_layer(y_offset) 
 
-    for x in range(ChunkTools.CHUNK_SIZE): 
-        for false_y in range(ChunkTools.CHUNK_SIZE):
-            var y = false_y + (ChunkTools.CHUNK_SIZE * y_index)
-            var v = (noise_generator.get_noise_2d(x, y) + 1) / 2
+    for pos in ChunkTools.chunk_range(): 
+        if 1 <= placement_layer.getv(pos):
+            terrain_layer.place_tile(pos.x, pos.y + y_offset)
 
-            if .5 <= v: 
-                terrain_layer.place_tile(x, y)
+
+func generate_placement_layer(y_offset) -> ChunkTools.ChunkArray:
+    var layer = ChunkTools.ChunkArray.new()
+
+    # first pass
+    for pos in ChunkTools.chunk_range():
+        var v = (noise_generator.get_noise_2d(pos.x, pos.y + y_offset) + 1) / 2
+        if .5 <= v: 
+            layer.setv(pos, 1)
+    
+    # second pass
+    # TODO
+    for pos in ChunkTools.chunk_range():
+        if layer.getv(pos) == 0:
+            continue
+        
+    return layer
+
