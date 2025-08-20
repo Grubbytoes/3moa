@@ -3,12 +3,16 @@ extends Node
 @export var placement_threshold := .5
 
 @onready var terrain_layer: TerrainLayer = get_parent()
-@onready var noise_generator := FastNoiseLite.new()
+@onready var placement_noise := FastNoiseLite.new()
+@onready var hardness_noise := FastNoiseLite.new()
 
 
 func _ready():
-	noise_generator.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
-	noise_generator.frequency = .21
+	placement_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
+	placement_noise.frequency = .21
+
+	hardness_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
+	hardness_noise.frequency = .14
 
 	generate_chunk(0)
 	generate_chunk(1)
@@ -17,17 +21,18 @@ func _ready():
 func generate_chunk(y_index = 0):
 	var y_offset = y_index * ChunkTools.CHUNK_SIZE
 
-	generate_placement_layer(y_offset)
+	placement_layer(y_offset)
+	hardness_layer(y_offset)
 	ore_layer(y_offset)
 
 
-func generate_placement_layer(y_offset):
+func placement_layer(y_offset):
 	var layer = ChunkTools.ChunkArray.new()
 
 	# first pass
 	for pos in ChunkTools.chunk_range():
 		# simple noise
-		var v = (noise_generator.get_noise_2d(pos.x, pos.y + y_offset) + 1) / 2
+		var v = (placement_noise.get_noise_2d(pos.x, pos.y + y_offset) + 1) / 2
 
 		# increased towards the sides
 		var distance_from_margin = min(pos.x, ChunkTools.CHUNK_SIZE - 1 - pos.x)
@@ -46,6 +51,20 @@ func generate_placement_layer(y_offset):
 			terrain_layer.place_tile(pos + Vector2i(0, y_offset))
 
 
+## creates patches of harder and softer rock
+func hardness_layer(y_offset: int):
+	for pos in ChunkTools.chunk_range():
+		pos += +Vector2i(0, y_offset)
+		var cell_data = terrain_layer.get_cell_tile_data(pos)
+
+		if !cell_data: continue
+
+		var hardness_value = hardness_noise.get_noise_2dv(pos)
+
+		if .3 < hardness_value:
+			terrain_layer.place_tile(pos, 1)
+	
+
 ## Generates and places the ore layer
 func ore_layer(y_offset: int, no_ore_veins := 3):
 	while 0 < no_ore_veins:
@@ -63,4 +82,4 @@ func grow_ore_vein(coord: Vector2i, richness := 3) -> int:
 		ore_placed += 1
 		coord = ChunkTools.simple_random_displace(coord)
 	
-	return ore_placed	
+	return ore_placed

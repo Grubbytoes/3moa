@@ -13,12 +13,16 @@ func _ready():
 	add_child(effects_manager)
 
 
-func place_tile(coord: Vector2i, _type=0):
+## Places a block of stone at the given coordinates
+func place_tile(coord: Vector2i, type = 0):
 	#! for now this only places basic tiles, will improve on this
-	set_cell(coord, 0, Vector2i.ZERO)
+	var atlas_coords = Vector2i.ZERO + Vector2i(type, 0)
+	set_cell(coord, 0, atlas_coords)
 
 
-func place_ore(coord: Vector2i, _type=0) -> bool:
+## Places a block of ore at the given coordinates. will ONLY place ore on top of existing tiles, and will return false if it tries
+## to place ore on an empty cell
+func place_ore(coord: Vector2i, _type = 0) -> bool:
 	#! for now very simple, only a single ore type
 	var atlas_coords = get_cell_atlas_coords(coord)
 
@@ -29,8 +33,7 @@ func place_ore(coord: Vector2i, _type=0) -> bool:
 	return true
 
 
-# Registers a hit on the tile at the given coordinates (if one exists)
-# Handles tile damage and destruction
+## Registers a hit on the tile at the given coordinates (if one exists), handles tile damage and destruction
 func hit_tile_at(point_of_collision: Vector2):
 	var hit_tile_coords = Vector2i(
 		floor((point_of_collision.x - position.x) / TILE_SIZE),
@@ -41,9 +44,33 @@ func hit_tile_at(point_of_collision: Vector2):
 		destroy_tile(hit_tile_coords)
 
 
-func destroy_tile(coords):
+## Destroys the tile at the given coordinates, if one exist. If this is a special tile (like ore) the logic for that
+## tiles destruction is triggered here
+##
+## Returns false if it tries to destroy and empty cell, otherwise true
+func destroy_tile(coords) -> bool:
+	var tile_data := get_cell_tile_data(coords)
+
+	if tile_data == null:
+		return false
+	
+	if tile_data.get_custom_data("ore"):
+		drop_ore(coords)
+
 	erase_cell(coords)
 	effects_manager.destroy_tile_effect(coords)
+
+	return true
+
+
+func drop_ore(coords: Vector2i):
+	var spawn_ore_item_at = Vector2(coords * 32)
+	spawn_ore_item_at += Vector2(16, 16)
+
+	#! naive implementation for testing only
+	var ore_item = preload("res://objects/collectables/score_collectable.tscn").instantiate()
+	ore_item.position = spawn_ore_item_at
+	add_child(ore_item)
 
 
 # This class is responsible for answering the question "is this tile destroyed yet" when it is hit with a projectile
@@ -53,6 +80,8 @@ class DamageManager extends Node:
 
 	var damage_map := {}
 
+	## Returns true of the tile at the given coordinates (if one exists) is sufficiently damaged
+	## that it can be destroyed.
 	func can_destroy_tile(key_coords: Vector2i) -> bool:
 		var damaged_hardness = damage_map.get(key_coords, get_initial_hardness(key_coords))
 		
@@ -64,11 +93,12 @@ class DamageManager extends Node:
 			return true
 	
 
+	## Resets the damage of the given tile - clearing references to it in the damage map
 	func reset_tile_damage(key_coords: Vector2i):
 		damage_map.erase(key_coords)
 
 
-	# returns the initial hardness of the tile at the key coordinates, or -1 if there is none
+	## returns the initial hardness of the tile at the key coordinates, or -1 if there is none
 	func get_initial_hardness(key_coords: Vector2i) -> int:
 		var terrain_layer: TerrainLayer = get_parent()
 		var tile_data = terrain_layer.get_cell_tile_data(key_coords)
@@ -81,7 +111,6 @@ class DamageManager extends Node:
 
 # TODO
 class EffectManager extends Node2D:
-	
 	func destroy_tile_effect(coords: Vector2i):
 		pass
 	
