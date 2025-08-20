@@ -13,9 +13,20 @@ func _ready():
 	add_child(effects_manager)
 
 
-func place_tile(x, y, _type=0):
+func place_tile(coord: Vector2i, _type=0):
 	#! for now this only places basic tiles, will improve on this
-	set_cell(Vector2i(x, y), 0, Vector2i.ZERO)
+	set_cell(coord, 0, Vector2i.ZERO)
+
+
+func place_ore(coord: Vector2i, _type=0) -> bool:
+	#! for now very simple, only a single ore type
+	var atlas_coords = get_cell_atlas_coords(coord)
+
+	if atlas_coords == Vector2i(-1, -1):
+		return false
+	
+	set_cell(coord, 1, atlas_coords)
+	return true
 
 
 # Registers a hit on the tile at the given coordinates (if one exists)
