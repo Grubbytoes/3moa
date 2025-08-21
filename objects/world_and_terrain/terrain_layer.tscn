@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://br0ddatrvg8cl"]
 
 [ext_resource type="TileSet" uid="uid://d2ieyjp1w6y7n" path="res://resources/cave_tiles.tres" id="1_8mjst"]
-[ext_resource type="Script" uid="uid://b8sxf356jw0sn" path="res://objects/terrain_layer.gd" id="2_pdfjh"]
+[ext_resource type="Script" uid="uid://b8sxf356jw0sn" path="res://objects/world_and_terrain/terrain_layer.gd" id="2_pdfjh"]
 
 [node name="TerrainLayer" type="TileMapLayer"]
 tile_set = ExtResource("1_8mjst")

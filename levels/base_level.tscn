@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://bt4t6f8pxy33k"]
 
 [ext_resource type="Script" uid="uid://3roqsjbso263" path="res://levels/level.gd" id="1_wevqg"]
-[ext_resource type="PackedScene" uid="uid://cago1gspn6vcd" path="res://objects/player.tscn" id="2_63c5o"]
-[ext_resource type="PackedScene" uid="uid://br0ddatrvg8cl" path="res://objects/terrain_layer.tscn" id="2_ew5uy"]
+[ext_resource type="PackedScene" uid="uid://cago1gspn6vcd" path="res://objects/characters/player.tscn" id="2_63c5o"]
+[ext_resource type="PackedScene" uid="uid://br0ddatrvg8cl" path="res://objects/world_and_terrain/terrain_layer.tscn" id="2_ew5uy"]
 [ext_resource type="PackedScene" uid="uid://b74fk7djfn7od" path="res://objects/game_master.tscn" id="4_satuh"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ew5uy"]
