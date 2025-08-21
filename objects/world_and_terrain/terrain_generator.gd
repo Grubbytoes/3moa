@@ -61,7 +61,7 @@ func hardness_layer(y_offset: int):
 
 		var hardness_value = hardness_noise.get_noise_2dv(pos)
 
-		if .3 < hardness_value:
+		if .25 < hardness_value:
 			terrain_layer.place_tile(pos, 1)
 	
 

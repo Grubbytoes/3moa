@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqew2yhnyjket"]
+
+[ext_resource type="Script" uid="uid://cqgcdj4s6334y" path="res://objects/world_and_terrain/terrain_generator.gd" id="1_rpftj"]
+
+[node name="TerrainGenerator" type="Node"]
+script = ExtResource("1_rpftj")
