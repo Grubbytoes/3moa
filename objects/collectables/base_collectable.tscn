@@ -1,14 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgtqy4a8fg4js"]
+[gd_scene load_steps=5 format=3 uid="uid://cgtqy4a8fg4js"]
 
 [ext_resource type="Script" uid="uid://toks7ux1ahhu" path="res://objects/collectables/base_collectable.gd" id="1_onqdd"]
 [ext_resource type="Shape2D" uid="uid://cwml5heh1awca" path="res://resources/small_projectile_collision_shape.tres" id="2_b0d24"]
+[ext_resource type="Shape2D" uid="uid://b1srpyol0u8ln" path="res://resources/collectable_collision.tres" id="3_qjkmj"]
 
-[node name="Collectable" type="Node2D"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qjkmj"]
+bounce = 0.5
+
+[node name="Collectable" type="RigidBody2D"]
+mass = 0.2
+physics_material_override = SubResource("PhysicsMaterial_qjkmj")
+gravity_scale = 0.0
+lock_rotation = true
 script = ExtResource("1_onqdd")
 
 [node name="PickupArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
 shape = ExtResource("2_b0d24")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = ExtResource("3_qjkmj")
+debug_color = Color(0, 0.6515, 0.0242398, 0)
 
 [connection signal="body_entered" from="PickupArea" to="." method="on_pickup_body_entered"]

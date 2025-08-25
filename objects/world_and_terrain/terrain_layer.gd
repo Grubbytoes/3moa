@@ -68,8 +68,9 @@ func drop_ore(coords: Vector2i):
 	spawn_ore_item_at += Vector2(16, 16)
 
 	#! naive implementation for testing only
-	var ore_item = preload("res://objects/collectables/score_collectable.tscn").instantiate()
+	var ore_item = preload("res://objects/collectables/score_collectable.tscn").instantiate() as BaseCollectable
 	ore_item.position = spawn_ore_item_at
+	ore_item.apply_force(Vector2.UP.rotated(randf() * PI * 2) * 250)
 	add_child(ore_item)
 
 

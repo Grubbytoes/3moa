@@ -5,12 +5,15 @@ extends Node
 @onready var terrain_layer: TerrainLayer = get_parent()
 @onready var placement_noise := FastNoiseLite.new()
 @onready var hardness_noise := FastNoiseLite.new()
+@onready var seed = randi()
 
 
 func _ready():
+	placement_noise.seed = seed
 	placement_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
 	placement_noise.frequency = .21
 
+	hardness_noise.seed = seed
 	hardness_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
 	hardness_noise.frequency = .14
 

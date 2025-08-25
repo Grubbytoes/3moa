@@ -1,5 +1,5 @@
 class_name BaseCollectable
-extends Node2D
+extends RigidBody2D
 
 
 func on_pickup_body_entered(body:Node2D) -> void:
