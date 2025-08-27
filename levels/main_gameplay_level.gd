@@ -1,11 +1,7 @@
 extends Level
 
 
-signal next_chunk_needed(chunk_no: int)
-
 var hud: HUD
-var next_chunk_needed_at := ChunkTools.CHUNK_SIZE
-var chunk_count = 2
 
 @onready var player := get_node("Player") as Player
 @onready var game_master := get_node("GameMaster") as GameMaster
@@ -23,13 +19,6 @@ func _ready():
 	cam.reparent(player, false) # very quick and dirty but we move
 
 	print("beep")
-
-
-func _physics_process(delta):
-	if next_chunk_needed_at < player.position.y:
-		next_chunk_needed.emit(chunk_count)
-		chunk_count += 1
-		next_chunk_needed_at += ChunkTools.CHUNK_SIZE * 32
 
 
 func setup_hud():

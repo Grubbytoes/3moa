@@ -7,6 +7,7 @@ const max_speed = 200
 const preloaded_projectile = preload("res://objects/characters/player_projectile.tscn")
 
 var is_shot_ready = true
+##! DEPRECATED use signals instead!!
 var master: GameMaster = null
 
 @onready var shot_timer: Timer = get_node("ShotTimer")

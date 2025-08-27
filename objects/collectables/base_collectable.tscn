@@ -8,6 +8,7 @@
 bounce = 0.5
 
 [node name="Collectable" type="RigidBody2D"]
+collision_layer = 16
 mass = 0.2
 physics_material_override = SubResource("PhysicsMaterial_qjkmj")
 gravity_scale = 0.0
@@ -19,7 +20,7 @@ script = ExtResource("1_onqdd")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
 shape = ExtResource("2_b0d24")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Collision" type="CollisionShape2D" parent="."]
 shape = ExtResource("3_qjkmj")
 debug_color = Color(0, 0.6515, 0.0242398, 0)
 

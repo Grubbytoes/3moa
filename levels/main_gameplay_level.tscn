@@ -1,25 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://bm3347q0ewp43"]
+[gd_scene load_steps=6 format=3 uid="uid://bm3347q0ewp43"]
 
 [ext_resource type="PackedScene" uid="uid://bt4t6f8pxy33k" path="res://levels/base_level.tscn" id="1_dofnf"]
 [ext_resource type="Script" uid="uid://mi32wjrtchmh" path="res://levels/main_gameplay_level.gd" id="2_dofnf"]
-[ext_resource type="PackedScene" uid="uid://br0ddatrvg8cl" path="res://objects/world_and_terrain/terrain_layer.tscn" id="3_suaay"]
-[ext_resource type="PackedScene" uid="uid://cqew2yhnyjket" path="res://objects/world_and_terrain/terrain_generator.tscn" id="4_dggrd"]
-[ext_resource type="PackedScene" uid="uid://b5blj6whqr1ks" path="res://objects/world_and_terrain/player_boundries.tscn" id="5_llt50"]
+[ext_resource type="PackedScene" uid="uid://dflbtdvox7l8k" path="res://objects/world_and_terrain/world.tscn" id="5_suaay"]
 [ext_resource type="PackedScene" uid="uid://cago1gspn6vcd" path="res://objects/characters/player.tscn" id="6_dggrd"]
 [ext_resource type="PackedScene" uid="uid://b74fk7djfn7od" path="res://objects/game_master.tscn" id="7_llt50"]
 
 [node name="MainGameplayLevel" instance=ExtResource("1_dofnf")]
 script = ExtResource("2_dofnf")
 
-[node name="TerrainLayer" parent="." index="2" instance=ExtResource("3_suaay")]
-
-[node name="TerrainGenerator" parent="TerrainLayer" index="0" instance=ExtResource("4_dggrd")]
-
-[node name="PlayerBoundries" parent="." index="3" instance=ExtResource("5_llt50")]
-
-[node name="Player" parent="." index="4" instance=ExtResource("6_dggrd")]
+[node name="Player" parent="." index="2" instance=ExtResource("6_dggrd")]
 position = Vector2(288, 48)
 
-[node name="GameMaster" parent="." index="5" instance=ExtResource("7_llt50")]
+[node name="GameMaster" parent="." index="3" instance=ExtResource("7_llt50")]
 
-[connection signal="next_chunk_needed" from="." to="TerrainLayer/TerrainGenerator" method="generate_chunk"]
+[node name="World" parent="." index="4" node_paths=PackedStringArray("watch_player") instance=ExtResource("5_suaay")]
+watch_player = NodePath("../Player")
