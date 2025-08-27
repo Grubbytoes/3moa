@@ -19,6 +19,11 @@ func _ready():
 	t.start(1)
 
 
+func _enter_tree() -> void:
+	GlobalEvents.add_air.connect(add_air)
+	GlobalEvents.add_score.connect(add_score)
+	
+
 func add_score(s: int):
 	score += s
 	score_update.emit(score)

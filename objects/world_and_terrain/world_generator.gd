@@ -1,5 +1,7 @@
 extends Node
 
+signal spawn_enemy(coord: Vector2i, key: String)
+
 @export var terrain_layer: TerrainLayer
 @export var placement_threshold := .5
 
@@ -27,6 +29,7 @@ func generate_chunk(y_index = 0):
 	placement_layer(y_offset)
 	hardness_layer(y_offset)
 	ore_layer(y_offset)
+	enemy_layer(y_offset)
 
 
 func placement_layer(y_offset):
@@ -74,6 +77,19 @@ func ore_layer(y_offset: int, no_ore_veins := 3):
 		var rand_coord = ChunkTools.randcoord() + Vector2i(0, y_offset)
 		if grow_ore_vein(rand_coord):
 			no_ore_veins -= 1
+
+
+func enemy_layer(y_offset: int, no_enemies = 2):
+	while 0 < no_enemies:
+		var rand_coord = ChunkTools.randcoord() + Vector2i(0, y_offset)
+
+		if !terrain_layer.is_cell_free(rand_coord):
+			continue
+		
+		spawn_enemy.emit(rand_coord, "dummy")
+		no_enemies -= 1
+		
+
 
 
 ## Attempts to grow an ore vein of the given richness at the given coordinate. Will only place ore on top of existing tiles, according to TerrainLayer

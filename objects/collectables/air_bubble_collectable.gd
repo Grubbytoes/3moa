@@ -1,5 +1,8 @@
 extends BaseCollectable
 
 
+@export var air_value = 10
+
+
 func player_pickup(player: Player) -> void:
-	player.master.add_air(10)
+	GlobalEvents.add_air.emit(air_value)

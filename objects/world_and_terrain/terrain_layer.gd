@@ -66,7 +66,8 @@ func destroy_tile(coords) -> bool:
 	return true
 
 
-
+func is_cell_free(coords: Vector2i) -> bool:
+	return get_cell_source_id(coords) == -1
 
 
 # This class is responsible for answering the question "is this tile destroyed yet" when it is hit with a projectile

@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.4", "Mobile")
 [autoload]
 
 ChunkTools="*res://tools/chunk_tools.gd"
+GlobalEvents="*res://tools/global_events.gd"
 
 [display]
 

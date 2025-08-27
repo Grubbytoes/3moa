@@ -9,6 +9,7 @@ height = 22.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 129
+motion_mode = 1
 script = ExtResource("1_ykyjo")
 
 [node name="Sprite" type="Sprite2D" parent="."]

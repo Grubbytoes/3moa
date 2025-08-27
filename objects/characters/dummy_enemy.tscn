@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://de6qfne6mkh5t"]
+
+[ext_resource type="Texture2D" uid="uid://dumhw8y6j3dhv" path="res://media/textures/placeholders.png" id="1_caw5l"]
+
+[node name="DummyEnemy" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_caw5l")
+region_enabled = true
+region_rect = Rect2(32, 32, 16, 16)
