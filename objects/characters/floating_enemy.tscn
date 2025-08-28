@@ -1,13 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2rqttxpouvj0"]
+[gd_scene load_steps=7 format=3 uid="uid://c2rqttxpouvj0"]
 
 [ext_resource type="Script" uid="uid://bln6wvmskwbxa" path="res://objects/characters/floating_enemy.gd" id="1_x5ton"]
 [ext_resource type="Texture2D" uid="uid://dumhw8y6j3dhv" path="res://media/textures/placeholders.png" id="2_pwt41"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_txu4p"]
-size = Vector2(14, 14)
+[ext_resource type="PackedScene" uid="uid://sm8y5haahmmb" path="res://hazard.tscn" id="3_pwt41"]
+[ext_resource type="Shape2D" uid="uid://gvyr5y84jgh3" path="res://resources/collision_shapes/small_enemy.tres" id="3_txu4p"]
 
 [sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_cc8fq"]
 length = 32.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_txu4p"]
+size = Vector2(16, 16)
 
 [node name="FloatingEnemy" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 9
@@ -20,9 +22,15 @@ region_enabled = true
 region_rect = Rect2(32, 32, 16, 16)
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_txu4p")
+shape = ExtResource("3_txu4p")
 
 [node name="Vision" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
 shape = SubResource("SeparationRayShape2D_cc8fq")
+
+[node name="Hazard" parent="." instance=ExtResource("3_pwt41")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hazard"]
+shape = SubResource("RectangleShape2D_txu4p")
+debug_color = Color(0.968627, 0, 0.454902, 0)

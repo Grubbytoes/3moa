@@ -1,5 +1,5 @@
 class_name NonPlayerCharacter
-extends CharacterBody2D
+extends BaseCharacter
 
 signal death
 
@@ -32,7 +32,7 @@ func move_character(delta) -> bool:
 func projectile_hit():
 	# todo would be nice to have a proper health and damage system here
 	health -= 1
-	
+
 	if 0 >= health:
 		die()
 

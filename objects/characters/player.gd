@@ -1,5 +1,5 @@
 class_name Player
-extends CharacterBody2D
+extends BaseCharacter
 
 signal exceeded_critical_velocity(has_exceeded: bool)
 
