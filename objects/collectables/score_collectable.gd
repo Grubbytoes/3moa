@@ -5,4 +5,4 @@ extends BaseCollectable
 
 
 func player_pickup(player: Player) -> void:
-	player.master.add_score(score_value)
+	GlobalEvents.add_score.emit(score_value)

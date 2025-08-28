@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.4", "Mobile")
 [autoload]
 
 ChunkTools="*res://tools/chunk_tools.gd"
+GlobalEvents="*res://tools/global_events.gd"
 
 [display]
 
@@ -25,6 +26,7 @@ window/stretch/mode="viewport"
 [global_group]
 
 player="the player character object"
+enemy=""
 
 [input]
 
@@ -42,6 +44,9 @@ action_b={
 [layer_names]
 
 2d_physics/layer_1="universal"
+2d_physics/layer_3="player"
+2d_physics/layer_4="npc"
+2d_physics/layer_5="items"
 2d_physics/layer_8="player boundries"
 
 [rendering]

@@ -2,6 +2,7 @@ class_name PlayerProjectile
 extends Node2D
 
 const speed = 540
+const knockback_force = 60
 
 var velocity = Vector2.ZERO
 
@@ -20,13 +21,16 @@ func hit_body(body: Node2D) -> void:
 	# For now we are just assuming we're hitting a tile
 	# logic for enemies and items later
 
-	var terrain_layer := body as TerrainLayer
-	if !terrain_layer:
-		return
+	if body is NonPlayerCharacter:
+		var hit_character := body as NonPlayerCharacter
+		var normal := global_position.direction_to(hit_character.global_position)
+		hit_character.projectile_hit()
+		hit_character.knockback(normal * knockback_force)
 
-	# as of now, this will not work with scrolling or offset tiles
-	var point_of_collision = position + (velocity.normalized() * (radius + 1))
-	terrain_layer.hit_tile_at(point_of_collision)
+	if body is TerrainLayer:
+		var terrain_layer := body as TerrainLayer
+		var point_of_collision = position + (velocity.normalized() * (radius + 1))
+		terrain_layer.hit_tile_at(point_of_collision)
 
 	destroy_projectile()
 

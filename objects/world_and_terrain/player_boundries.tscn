@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5blj6whqr1ks"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ew5uy"]
+
+[node name="PlayerBoundries" type="Node2D"]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="North" type="StaticBody2D" parent="."]
+position = Vector2(576, 0)
+rotation = 3.14159
+collision_layer = 128
+collision_mask = 128
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="North"]
+shape = SubResource("WorldBoundaryShape2D_ew5uy")
+
+[node name="East" type="StaticBody2D" parent="."]
+position = Vector2(576, 0)
+rotation = -1.5708
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="East"]
+shape = SubResource("WorldBoundaryShape2D_ew5uy")
+
+[node name="West" type="StaticBody2D" parent="."]
+position = Vector2(0, 324)
+rotation = 1.57079
+collision_layer = 128
+collision_mask = 128
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="West"]
+shape = SubResource("WorldBoundaryShape2D_ew5uy")

@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=4 uid="uid://c4cdv7g8ml41n"]
+
+[ext_resource type="PackedScene" uid="uid://bt4t6f8pxy33k" path="res://levels/base_level.tscn" id="1_sut1m"]
+[ext_resource type="PackedScene" uid="uid://cago1gspn6vcd" path="res://objects/characters/player.tscn" id="2_4e1jk"]
+[ext_resource type="PackedScene" uid="uid://br0ddatrvg8cl" path="res://objects/world_and_terrain/terrain_layer.tscn" id="3_1n58l"]
+
+[node name="BaseLevel" instance=ExtResource("1_sut1m")]
+
+[node name="Player" parent="." index="2" instance=ExtResource("2_4e1jk")]
+position = Vector2(288, 64)
+
+[node name="TerrainLayer" parent="." index="3" instance=ExtResource("3_1n58l")]
+tile_map_data = PackedByteArray("AAAFAAUAAQAAAAAAAAAGAAUAAQAAAAAAAAAHAAUAAQAAAAAAAAAIAAYAAQAAAAAAAAAJAAYAAQAAAAAAAAAKAAYAAQAAAAAAAAALAAYAAQAAAAAAAAA=")

@@ -11,13 +11,17 @@ extends Control
 
 var stopwatch_time: int = 0
 
-func update_air(value):
+func update_air(value: int):
 	time_display.update_air(value)
 
 
-func update_time(value):
+func update_time(value: int):
 	time_display.update_time(value)
 
 
-func update_score(value):
+func update_score(value: int):
 	score_display.update_score(value)
+
+
+func critical_velocity(exceeded: bool):
+	print("Exceeded critical velocity : %s" % exceeded)

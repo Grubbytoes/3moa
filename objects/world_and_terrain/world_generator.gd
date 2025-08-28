@@ -1,16 +1,21 @@
 extends Node
 
+signal spawn_enemy(coord: Vector2i, key: String)
+
+@export var terrain_layer: TerrainLayer
 @export var placement_threshold := .5
 
-@onready var terrain_layer: TerrainLayer = get_parent()
 @onready var placement_noise := FastNoiseLite.new()
 @onready var hardness_noise := FastNoiseLite.new()
+@onready var noise_seed = randi()
 
 
 func _ready():
+	placement_noise.seed = noise_seed
 	placement_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
 	placement_noise.frequency = .21
 
+	hardness_noise.seed = noise_seed
 	hardness_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
 	hardness_noise.frequency = .14
 
@@ -24,6 +29,7 @@ func generate_chunk(y_index = 0):
 	placement_layer(y_offset)
 	hardness_layer(y_offset)
 	ore_layer(y_offset)
+	enemy_layer(y_offset)
 
 
 func placement_layer(y_offset):
@@ -61,7 +67,7 @@ func hardness_layer(y_offset: int):
 
 		var hardness_value = hardness_noise.get_noise_2dv(pos)
 
-		if .3 < hardness_value:
+		if .25 < hardness_value:
 			terrain_layer.place_tile(pos, 1)
 	
 
@@ -71,6 +77,19 @@ func ore_layer(y_offset: int, no_ore_veins := 3):
 		var rand_coord = ChunkTools.randcoord() + Vector2i(0, y_offset)
 		if grow_ore_vein(rand_coord):
 			no_ore_veins -= 1
+
+
+func enemy_layer(y_offset: int, no_enemies = 2):
+	while 0 < no_enemies:
+		var rand_coord = ChunkTools.randcoord() + Vector2i(0, y_offset)
+
+		if !terrain_layer.is_cell_free(rand_coord):
+			continue
+		
+		spawn_enemy.emit(rand_coord, "floating")
+		no_enemies -= 1
+		
+
 
 
 ## Attempts to grow an ore vein of the given richness at the given coordinate. Will only place ore on top of existing tiles, according to TerrainLayer

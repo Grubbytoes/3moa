@@ -1,6 +1,8 @@
 class_name TerrainLayer
 extends TileMapLayer
 
+signal drop_ore(coords)
+
 static var TILE_SIZE = 32
 
 # TODO it may be a good idea to pull this out to its own class or node
@@ -55,7 +57,8 @@ func destroy_tile(coords) -> bool:
 		return false
 	
 	if tile_data.get_custom_data("ore"):
-		drop_ore(coords)
+		# drop_ore.emit(coords)
+		drop_ore.emit(coords)
 
 	erase_cell(coords)
 	effects_manager.destroy_tile_effect(coords)
@@ -63,14 +66,8 @@ func destroy_tile(coords) -> bool:
 	return true
 
 
-func drop_ore(coords: Vector2i):
-	var spawn_ore_item_at = Vector2(coords * 32)
-	spawn_ore_item_at += Vector2(16, 16)
-
-	#! naive implementation for testing only
-	var ore_item = preload("res://objects/collectables/score_collectable.tscn").instantiate()
-	ore_item.position = spawn_ore_item_at
-	add_child(ore_item)
+func is_cell_free(coords: Vector2i) -> bool:
+	return get_cell_source_id(coords) == -1
 
 
 # This class is responsible for answering the question "is this tile destroyed yet" when it is hit with a projectile
