@@ -86,7 +86,7 @@ func enemy_layer(y_offset: int, no_enemies = 2):
 		if !terrain_layer.is_cell_free(rand_coord):
 			continue
 		
-		spawn_enemy.emit(rand_coord, "dummy")
+		spawn_enemy.emit(rand_coord, "floating")
 		no_enemies -= 1
 		
 

@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2rqttxpouvj0"]
+
+[ext_resource type="Script" uid="uid://bln6wvmskwbxa" path="res://objects/characters/floating_enemy.gd" id="1_x5ton"]
+[ext_resource type="Texture2D" uid="uid://dumhw8y6j3dhv" path="res://media/textures/placeholders.png" id="2_pwt41"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_txu4p"]
+size = Vector2(14, 14)
+
+[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_cc8fq"]
+length = 32.0
+
+[node name="FloatingEnemy" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 9
+script = ExtResource("1_x5ton")
+metadata/_custom_type_script = "uid://63x6ucuu2yyw"
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_pwt41")
+region_enabled = true
+region_rect = Rect2(32, 32, 16, 16)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_txu4p")
+
+[node name="Vision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
+shape = SubResource("SeparationRayShape2D_cc8fq")

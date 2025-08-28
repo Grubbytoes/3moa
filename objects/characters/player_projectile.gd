@@ -20,13 +20,17 @@ func hit_body(body: Node2D) -> void:
 	# For now we are just assuming we're hitting a tile
 	# logic for enemies and items later
 
-	var terrain_layer := body as TerrainLayer
-	if !terrain_layer:
+	if body is Player:
 		return
 
-	# as of now, this will not work with scrolling or offset tiles
-	var point_of_collision = position + (velocity.normalized() * (radius + 1))
-	terrain_layer.hit_tile_at(point_of_collision)
+	if body is NonPlayerCharacter:
+		var hit_character := body as NonPlayerCharacter
+		hit_character.projectile_hit()
+
+	if body is TerrainLayer:
+		var terrain_layer := body as TerrainLayer
+		var point_of_collision = position + (velocity.normalized() * (radius + 1))
+		terrain_layer.hit_tile_at(point_of_collision)
 
 	destroy_projectile()
 

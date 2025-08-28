@@ -2,7 +2,8 @@ extends Node2D
 
 
 var packed_enemies = {
-	"dummy": preload("res://objects/characters/dummy_enemy.tscn")
+	"dummy": preload("res://objects/characters/dummy_enemy.tscn"),
+	"floating": preload("res://objects/characters/floating_enemy.tscn")
 }
 
 
