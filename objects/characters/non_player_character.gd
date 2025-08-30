@@ -1,11 +1,8 @@
 class_name NonPlayerCharacter
 extends BaseCharacter
 
-signal death
 
 @export var max_health = 3
-@export var damage = 10
-
 
 ## The intended move direction of the character
 var move_direction := Vector2.ZERO
@@ -29,13 +26,25 @@ func move_character(delta) -> bool:
 	return collided
 
 
-func projectile_hit():
-	# todo would be nice to have a proper health and damage system here
-	health -= 1
+## A useful function which encapsulates damage and knockback
+func take_hit(normal: Vector2, knockback_force = 1, damage = 1) -> bool:
+	if !normal.is_normalized():
+		printerr("take_hit normal param is not normalized!")
 
-	if 0 >= health:
+	if take_damage(damage) and 0 < health:
+		knockback(normal * knockback_force)
+		return true
+	elif 0 >= health:
 		die()
+		return true
+	
+	return false
 
 
-func die():
-	queue_free()
+## takes damage, reducing health, if character is vulnerable
+func take_damage(damage: int) -> bool:
+	if !super.take_damage(damage):
+		return false
+	
+	health -= damage
+	return true

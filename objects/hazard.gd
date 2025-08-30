@@ -13,5 +13,4 @@ func on_body_entered(body: Node2D):
 	if body is Player:
 		print("player hit hazard")
 		var normal := global_position.direction_to(body.global_position)
-		body.knockback(normal * knockback_force)
-		GlobalEvents.add_air.emit(-damage)
+		body.take_hit(normal, knockback_force, damage)

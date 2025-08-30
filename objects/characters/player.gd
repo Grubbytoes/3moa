@@ -82,10 +82,21 @@ func shot_ready():
 	_is_shot_ready = true
 
 
-func _on_collision(collision: KinematicCollision2D):
-	if _is_above_critical_velocity:
-		print("collided at greater than critical speed")
-		GlobalEvents.add_air.emit(-collision_air_penalty)
-		
+func take_hit(normal: Vector2, knockback_force = 1, damage = 1) -> bool:
+	var super_take_hit = super.take_hit(normal, knockback_force, damage)
 
-	velocity = velocity.bounce(collision.get_normal()) * bounce
+	if super_take_hit:
+		print("taking %s air damage" % damage)
+		GlobalEvents.add_air.emit(-damage)
+		return true
+	
+	return false
+
+
+func _on_collision(collision: KinematicCollision2D):
+	var normal = collision.get_normal()
+
+	if _is_above_critical_velocity:
+		take_hit(normal, 50, collision_air_penalty)
+	else:
+		velocity = velocity.bounce(normal) * bounce

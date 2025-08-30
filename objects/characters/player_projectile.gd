@@ -24,8 +24,7 @@ func hit_body(body: Node2D) -> void:
 	if body is NonPlayerCharacter:
 		var hit_character := body as NonPlayerCharacter
 		var normal := global_position.direction_to(hit_character.global_position)
-		hit_character.projectile_hit()
-		hit_character.knockback(normal * knockback_force)
+		hit_character.take_hit(normal, knockback_force)
 
 	if body is TerrainLayer:
 		var terrain_layer := body as TerrainLayer
