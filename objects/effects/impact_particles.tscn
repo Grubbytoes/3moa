@@ -21,6 +21,7 @@ initial_velocity_max = 80.0
 gravity = Vector3(0, 0, 0)
 damping_min = 10.0
 damping_max = 20.0
+scale_max = 2.0
 alpha_curve = SubResource("CurveTexture_7y6md")
 
 [node name="ImpactParticles" type="GPUParticles2D"]
@@ -28,7 +29,7 @@ modulate = Color(0.176471, 0.576471, 0.866667, 1)
 emitting = false
 amount = 4
 texture = SubResource("AtlasTexture_7y6md")
-lifetime = 0.5
+lifetime = 0.3
 one_shot = true
 speed_scale = 2.0
 explosiveness = 1.0

@@ -64,7 +64,7 @@ func destroy_tile(coords) -> bool:
 		item_dropped.emit(coords, item)
 
 	erase_cell(coords)
-	effects_manager.destroy_tile_effect(coords)
+	tile_destroyed.emit(coords)
 
 	return true
 
