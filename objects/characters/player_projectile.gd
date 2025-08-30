@@ -4,6 +4,7 @@ extends Node2D
 const speed = 540
 const knockback_force = 60
 
+var packed_impact_particles := preload("res://objects/effects/impact_particles.tscn")
 var velocity = Vector2.ZERO
 
 @export var radius: int = 6
@@ -35,4 +36,10 @@ func hit_body(body: Node2D) -> void:
 
 
 func destroy_projectile():
+	var impact_particles = packed_impact_particles.instantiate() as GPUParticles2D
+	impact_particles.restart()
+	impact_particles.finished.connect(impact_particles.queue_free)
+	impact_particles.position = self.position
+	impact_particles.rotation = velocity.angle() - PI
+	add_sibling(impact_particles)
 	queue_free()

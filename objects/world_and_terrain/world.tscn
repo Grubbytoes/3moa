@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dflbtdvox7l8k"]
+[gd_scene load_steps=8 format=3 uid="uid://dflbtdvox7l8k"]
 
 [ext_resource type="Script" uid="uid://beq8cb7os637i" path="res://objects/world_and_terrain/world.gd" id="1_1d5wd"]
 [ext_resource type="Script" uid="uid://c6xtoj1v3af8t" path="res://objects/world_and_terrain/item_pool.gd" id="1_isjyg"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://vrvfb6xixy1p" path="res://objects/world_and_terrain/enemy_pool.gd" id="3_2vjdb"]
 [ext_resource type="PackedScene" uid="uid://cqew2yhnyjket" path="res://objects/world_and_terrain/terrain_generator.tscn" id="3_se3vo"]
 [ext_resource type="PackedScene" uid="uid://b5blj6whqr1ks" path="res://objects/world_and_terrain/player_boundries.tscn" id="4_2vjdb"]
+[ext_resource type="PackedScene" uid="uid://cq61uosk0gtl7" path="res://objects/effects/impact_particles.tscn" id="7_2vjdb"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_1d5wd")
@@ -23,6 +24,8 @@ script = ExtResource("3_2vjdb")
 [node name="WorldGenerator" parent="." node_paths=PackedStringArray("terrain_layer") instance=ExtResource("3_se3vo")]
 terrain_layer = NodePath("../TerrainLayer")
 
+[node name="ImpactParticles" parent="." instance=ExtResource("7_2vjdb")]
+
 [connection signal="chunk_needed" from="." to="WorldGenerator" method="generate_chunk"]
-[connection signal="drop_ore" from="TerrainLayer" to="ItemPool" method="drop_ore"]
+[connection signal="item_dropped" from="TerrainLayer" to="ItemPool" method="drop_item"]
 [connection signal="spawn_enemy" from="WorldGenerator" to="EnemyPool" method="spawn_enemy"]

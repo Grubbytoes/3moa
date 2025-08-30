@@ -1,7 +1,9 @@
 class_name TerrainLayer
 extends TileMapLayer
 
-signal drop_ore(coords)
+signal item_dropped(coords: Vector2i, key: String)
+signal tile_hit(coords: Vector2i)
+signal tile_destroyed(coords: Vector2i)
 
 static var TILE_SIZE = 32
 
@@ -55,10 +57,11 @@ func destroy_tile(coords) -> bool:
 
 	if tile_data == null:
 		return false
+		
+	var item = tile_data.get_custom_data("item")
 	
-	if tile_data.get_custom_data("ore"):
-		# drop_ore.emit(coords)
-		drop_ore.emit(coords)
+	if item:
+		item_dropped.emit(coords, item)
 
 	erase_cell(coords)
 	effects_manager.destroy_tile_effect(coords)
