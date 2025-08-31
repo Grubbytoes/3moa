@@ -7,7 +7,7 @@
 [ext_resource type="Shape2D" uid="uid://gvyr5y84jgh3" path="res://resources/collision_shapes/small_enemy.tres" id="3_txu4p"]
 
 [sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_txu4p"]
-length = 32.0
+length = 48.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cc8fq"]
 size = Vector2(16, 16)

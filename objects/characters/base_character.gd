@@ -35,14 +35,17 @@ func take_hit(normal: Vector2, knockback_force = 1, damage = 1) -> bool:
 	return false
 
 
+## Applies the given amount of knockback
 func knockback(force: Vector2):
 	velocity += force
 
 
+## Returns whether or not the character is invulnerable
 func is_invulnerable():
 	return _invulnerable
 
 
+## Sets invulnerable to true, for the given amount of time
 func _invulnerable_on(t: float):
 	_invulnerable = true
 	_character_anim.play("invulnerable")
@@ -50,11 +53,13 @@ func _invulnerable_on(t: float):
 	pass
 
 
+## Sets invulnerable to false
 func _invulnerability_off():
 	_invulnerable = false
 	_character_anim.stop()
 
 
+## Signals that the character is dead, and removes it from the scene by default
 func die():
 	death.emit()
 	queue_free()

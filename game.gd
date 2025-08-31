@@ -13,6 +13,7 @@ func _ready():
 	switch_level("main_menu")
 
 
+## Switches to a new level. If a level is currently staged, that level is ended and removed
 func switch_level(key: String) -> bool:
 	var new_level_packed = loaded_levels.get(key)
 	var new_level: Level

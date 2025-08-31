@@ -1,5 +1,8 @@
-class_name GameMaster
+class_name SessionMaster
 extends Node
+## Responsible for managing the logic of a single 'run' or session of the game
+## Designed to be the single point of reference for resources, time, score etc.
+## As well as a central point of contact for communications (player to ui etc) and signals to minimize coupling
 
 signal time_tick()
 signal game_ended()
@@ -14,15 +17,15 @@ var score := 0
 @onready var t: Timer = $Timer
 
 
+func _enter_tree() -> void:
+	GlobalEvents.add_air.connect(add_air)
+	GlobalEvents.add_score.connect(add_score)
+
+
 func _ready():
 	t.timeout.connect(tick)
 	t.start(1)
 
-
-func _enter_tree() -> void:
-	GlobalEvents.add_air.connect(add_air)
-	GlobalEvents.add_score.connect(add_score)
-	
 
 func add_score(s: int):
 	score += s

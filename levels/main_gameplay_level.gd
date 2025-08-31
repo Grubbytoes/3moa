@@ -3,12 +3,12 @@ extends Level
 
 @onready var hud := get_node("UILayer/Hud") as HUD
 @onready var player := get_node("Player") as Player
-@onready var game_master := get_node("GameMaster") as GameMaster
+@onready var session_master := get_node("SessionMaster") as SessionMaster
 
 
 func _ready():
 	# get the HUD ready
-	setup_hud()
+	link_hud()
 	
 	# get the camera ready
 	cam.make_current()
@@ -17,9 +17,11 @@ func _ready():
 	print("beep")
 
 
-func setup_hud():
+## Links the session master to the HUD, as well as any other necessary incoming or
+## outgoing signals necessary for the HUD to to it's job
+func link_hud():
 	# I feel like this may get tedious but bare with me
 	# it's somehow less tedious than doing it in editor
-	game_master.air_update.connect(hud.update_air)
-	game_master.time_update.connect(hud.update_time)
-	game_master.score_update.connect(hud.update_score)
+	session_master.air_update.connect(hud.update_air)
+	session_master.time_update.connect(hud.update_time)
+	session_master.score_update.connect(hud.update_score)

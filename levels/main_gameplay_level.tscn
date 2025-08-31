@@ -15,7 +15,7 @@ script = ExtResource("2_dofnf")
 [node name="Player" parent="." index="2" instance=ExtResource("6_dggrd")]
 position = Vector2(288, 48)
 
-[node name="GameMaster" parent="." index="3" instance=ExtResource("7_llt50")]
+[node name="SessionMaster" parent="." index="3" instance=ExtResource("7_llt50")]
 
 [node name="World" parent="." index="4" node_paths=PackedStringArray("watch_player") instance=ExtResource("5_suaay")]
 watch_player = NodePath("../Player")

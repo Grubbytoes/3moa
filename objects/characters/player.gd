@@ -1,6 +1,9 @@
 class_name Player
 extends BaseCharacter
+## The main character, which is controlled by the player
 
+## Emitted when the player exceeds or dips below critical velocity - the velocity at which
+## a collision will result in taking damage
 signal exceeded_critical_velocity(has_exceeded: bool)
 
 ## The strength of thrust applied to the character when boosting, correlates to movement acceleration
@@ -43,10 +46,26 @@ func _physics_process(delta: float) -> void:
 		_on_collision(get_slide_collision(i))
 
 
+## * OVERRIDE
+## Takes a hit. If this character is vulnerable, an amount of air is lost equal to the damage of the
+## hit taken
+func take_hit(normal: Vector2, knockback_force = 1, damage = 1) -> bool:
+	var super_take_hit = super.take_hit(normal, knockback_force, damage)
+
+	if super_take_hit:
+		print("taking %s air damage" % damage)
+		GlobalEvents.add_air.emit(-damage)
+		return true
+	
+	return false
+
+
+## Thrusts (accelerates) in the given direction, normalized for the given amount of time (delta)
 func thrust(heading, delta) -> void:
 	velocity += heading * base_thrust * delta
 
 
+## Shoots a projectile in the given direction, and recoils
 func shoot(heading) -> void:
 	if !_is_shot_ready:
 		return
@@ -60,7 +79,7 @@ func shoot(heading) -> void:
 	shot_timer.start()
 
 
-
+## Applies drag (deceleration)
 func apply_drag(delta: float) -> void:
 	if 1 > velocity.length():
 		velocity = Vector2.ZERO
@@ -69,6 +88,7 @@ func apply_drag(delta: float) -> void:
 	velocity = velocity.lerp(Vector2.ZERO, .8 * delta)
 
 
+## Checks whether critical velocity has been reached, emitting the appropriate signal if it has
 func check_velocity():
 	if critical_velocity < velocity.length() and !_is_above_critical_velocity:
 		_is_above_critical_velocity = true
@@ -82,17 +102,7 @@ func shot_ready():
 	_is_shot_ready = true
 
 
-func take_hit(normal: Vector2, knockback_force = 1, damage = 1) -> bool:
-	var super_take_hit = super.take_hit(normal, knockback_force, damage)
-
-	if super_take_hit:
-		print("taking %s air damage" % damage)
-		GlobalEvents.add_air.emit(-damage)
-		return true
-	
-	return false
-
-
+## Called upon each kinematic collision. Takes a hit if above critical velocity
 func _on_collision(collision: KinematicCollision2D):
 	var normal = collision.get_normal()
 
