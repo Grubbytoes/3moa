@@ -4,7 +4,7 @@ var _paused := false
 
 @onready var hud := get_node("UILayer/Hud") as HUD
 @onready var pause_menu = get_node("UILayer/PauseMenu") as PauseMenu
-@onready var player := get_node("Player") as Player
+@onready var player := get_node("World/Player") as Player
 @onready var world := get_node("World")
 @onready var session_master := get_node("SessionMaster") as SessionMaster
 
@@ -16,6 +16,9 @@ func _ready():
 	# get the camera ready
 	cam.make_current()
 	cam.reparent(player, false) # very quick and dirty but we move
+
+	# connect the session master so that the game ends properly
+	session_master.session_ended.connect(finish_session)
 
 	print("beep")
 
@@ -51,6 +54,14 @@ func set_paused(p: bool):
 	pause_menu.visible = p
 	
 	_paused = p
+
+
+func finish_session():
+	var final_score = session_master.score
+	var final_time = session_master.time
+
+	game_root.register_last_results(final_score, final_time)
+	switch_level("results_screen")
 
 
 ## Returns true if the world is paused

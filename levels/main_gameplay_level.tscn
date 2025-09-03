@@ -15,12 +15,13 @@ script = ExtResource("2_dofnf")
 
 [node name="Hud" parent="UILayer" index="1" instance=ExtResource("3_dggrd")]
 
-[node name="Player" parent="." index="2" instance=ExtResource("6_dggrd")]
+[node name="SessionMaster" parent="." index="2" instance=ExtResource("7_llt50")]
+initial_air = 10
+
+[node name="World" parent="." index="3" node_paths=PackedStringArray("watch_player") instance=ExtResource("5_suaay")]
+watch_player = NodePath("Player")
+
+[node name="Player" parent="World" index="6" instance=ExtResource("6_dggrd")]
 position = Vector2(288, 48)
 
-[node name="SessionMaster" parent="." index="3" instance=ExtResource("7_llt50")]
-
-[node name="World" parent="." index="4" node_paths=PackedStringArray("watch_player") instance=ExtResource("5_suaay")]
-watch_player = NodePath("../Player")
-
-[connection signal="exceeded_critical_velocity" from="Player" to="UILayer/Hud" method="critical_velocity"]
+[connection signal="exceeded_critical_velocity" from="World/Player" to="UILayer/Hud" method="critical_velocity"]
