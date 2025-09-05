@@ -9,9 +9,4 @@ func _ready() -> void:
 	var formatted_time = [floor(results_data.time / 60), results_data.time % 60]
 
 	score_label.text = "SCORE : %06d" % results_data.score
-	time_label.text = TIME: "%02d:%02d" % formatted_time
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	time_label.text = "TIME: %02d:%02d" % formatted_time

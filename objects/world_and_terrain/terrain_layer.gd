@@ -1,7 +1,7 @@
 class_name TerrainLayer
 extends TileMapLayer
 
-signal item_dropped(coords: Vector2i, key: String)
+signal item_spawned(coords: Vector2i, key: String)
 signal tile_hit(coords: Vector2i)
 signal tile_destroyed(coords: Vector2i)
 
@@ -61,7 +61,7 @@ func destroy_tile(coords) -> bool:
 	var item = tile_data.get_custom_data("item")
 	
 	if item:
-		item_dropped.emit(coords, item)
+		item_spawned.emit(coords, item)
 
 	erase_cell(coords)
 	tile_destroyed.emit(coords)

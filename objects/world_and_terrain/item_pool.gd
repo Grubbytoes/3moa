@@ -3,7 +3,8 @@ extends Node2D
 
 # This could be pulled out to its own resource ir
 var packed_items = {
-	"ore" : preload("res://objects/collectables/score_collectable.tscn")
+	"ore" : preload("res://objects/collectables/score_collectable.tscn"),
+	"air bubble" : preload("res://objects/collectables/air_bubble_collectable.tscn")
 }
 
 

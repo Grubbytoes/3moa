@@ -28,6 +28,7 @@ script = ExtResource("3_2vjdb")
 terrain_layer = NodePath("../TerrainLayer")
 
 [connection signal="chunk_needed" from="." to="WorldGenerator" method="generate_chunk"]
-[connection signal="item_dropped" from="TerrainLayer" to="ItemPool" method="drop_item"]
+[connection signal="item_spawned" from="TerrainLayer" to="ItemPool" method="drop_item"]
 [connection signal="tile_destroyed" from="TerrainLayer" to="EffectPool" method="tile_break"]
-[connection signal="spawn_enemy" from="WorldGenerator" to="EnemyPool" method="spawn_enemy"]
+[connection signal="enemy_spawned" from="WorldGenerator" to="EnemyPool" method="spawn_enemy"]
+[connection signal="item_spawned" from="WorldGenerator" to="ItemPool" method="drop_item"]

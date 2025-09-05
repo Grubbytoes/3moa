@@ -16,7 +16,6 @@ script = ExtResource("2_dofnf")
 [node name="Hud" parent="UILayer" index="1" instance=ExtResource("3_dggrd")]
 
 [node name="SessionMaster" parent="." index="2" instance=ExtResource("7_llt50")]
-initial_air = 10
 
 [node name="World" parent="." index="3" node_paths=PackedStringArray("watch_player") instance=ExtResource("5_suaay")]
 watch_player = NodePath("Player")
