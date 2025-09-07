@@ -35,10 +35,10 @@ func generate_chunk(y_index = 0):
 
 
 func placement_layer(y_offset):
-	var layer = ChunkTools.ChunkArray.new()
+	var layer = ChunkArray.new()
 
 	# first pass
-	for pos in ChunkTools.chunk_range():
+	for pos in ChunkTools.range():
 		# simple noise
 		var v = (placement_noise.get_noise_2d(pos.x, pos.y + y_offset) + 1) / 2
 
