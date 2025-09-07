@@ -4,3 +4,4 @@
 
 # Media ignores
 media/*
+.vscode/settings.json
