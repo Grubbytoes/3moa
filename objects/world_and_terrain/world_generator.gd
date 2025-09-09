@@ -38,7 +38,7 @@ func placement_layer(y_offset):
 	var layer = ChunkArray.new()
 
 	# first pass
-	for pos in ChunkTools.range():
+	for pos in ChunkArray.range():
 		# simple noise
 		var v = (placement_noise.get_noise_2d(pos.x, pos.y + y_offset) + 1) / 2
 
@@ -54,14 +54,14 @@ func placement_layer(y_offset):
 	# TODO
 
 	# Do the work
-	for pos in ChunkTools.chunk_range():
+	for pos in ChunkArray.range():
 		if 1 <= layer.getv(pos):
 			terrain_layer.place_tile(pos + Vector2i(0, y_offset))
 
 
 ## creates patches of harder and softer rock
 func hardness_layer(y_offset: int):
-	for pos in ChunkTools.chunk_range():
+	for pos in ChunkArray.range():
 		pos += +Vector2i(0, y_offset)
 		var cell_data = terrain_layer.get_cell_tile_data(pos)
 

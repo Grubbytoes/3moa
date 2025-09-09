@@ -1,4 +1,4 @@
-extends Node2D
+extends ObjectPool
 
 
 var packed_effects := {

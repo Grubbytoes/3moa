@@ -1,6 +1,6 @@
-extends Node2D
+extends ObjectPool
 
-const max_enemy_count = 5
+const max_enemy_count = 16
 
 var packed_enemies = {
 	"dummy": preload("res://objects/characters/dummy_enemy.tscn"),
@@ -21,3 +21,5 @@ func spawn_enemy(coords: Vector2i, key: String):
 		var enemy_to_delete = get_child(0)
 		remove_child(enemy_to_delete)
 		enemy_to_delete.queue_free()
+
+

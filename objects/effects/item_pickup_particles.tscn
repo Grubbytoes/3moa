@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdma2n1etm3uc"]
+
+[ext_resource type="Texture2D" uid="uid://ds0x0yw355uph" path="res://media/textures/particles.png" id="1_mxbeo"]
+[ext_resource type="Material" uid="uid://b7fq52ni2tty3" path="res://resources/generic_burst_emition.tres" id="2_os7i6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_os7i6"]
+atlas = ExtResource("1_mxbeo")
+region = Rect2(0, 0, 8, 8)
+
+[node name="ItemPickupParticles" type="GPUParticles2D"]
+emitting = false
+amount = 5
+texture = SubResource("AtlasTexture_os7i6")
+interp_to_end = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = ExtResource("2_os7i6")

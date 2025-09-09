@@ -1,4 +1,6 @@
-extends Node2D
+extends ObjectPool
+
+const max_item_count = 16
 
 
 # This could be pulled out to its own resource ir
