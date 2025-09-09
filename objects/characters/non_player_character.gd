@@ -4,9 +4,7 @@ extends BaseCharacter
 
 @export var max_health = 3
 
-var slerp_movement = false
-var movement_lerp_weight = 2
-
+var target: Node2D
 
 @onready var health = max_health
 
@@ -56,3 +54,16 @@ func move_and_slerp(direction: Vector2, delta: float, weight = 1) -> bool:
 		velocity = velocity.slerp(direction, weight * delta)
 		
 	return collided
+
+
+func move_and_decelerate(delta: float, deceleration = 50):
+	var collided = move_and_slide()
+
+	if 1 > velocity.length():
+		velocity = Vector2.ZERO
+	else:
+		velocity = velocity.move_toward(Vector2.ZERO, deceleration * delta)
+	
+	return collided
+		
+	

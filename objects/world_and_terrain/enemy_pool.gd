@@ -10,7 +10,7 @@ var packed_enemies = {
 
 func spawn_enemy(coords: Vector2i, key: String):
 	var spawn_position = Vector2(coords * 32) + Vector2(16, 16)
-	var new_enemy = packed_enemies[key].instantiate()
+	var new_enemy = packed_enemies[key].instantiate() as NonPlayerCharacter
 
 	# Set up the enemy
 	new_enemy.position = spawn_position
