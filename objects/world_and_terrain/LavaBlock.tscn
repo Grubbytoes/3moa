@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://di81ri17v17a8"]
+
+[ext_resource type="Texture2D" uid="uid://duk3anvxfjlmi" path="res://media/textures/lava.png" id="1_hv1gl"]
+[ext_resource type="Shape2D" uid="uid://dkflr34hgm6vu" path="res://resources/collision_shapes/standard_block.tres" id="2_e8p6n"]
+[ext_resource type="PackedScene" uid="uid://sm8y5haahmmb" path="res://hazard.tscn" id="3_bjlx4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e8p6n"]
+size = Vector2(33, 33)
+
+[node name="LavaBlock" type="StaticBody2D"]
+
+[node name="Lava" type="Sprite2D" parent="."]
+texture = ExtResource("1_hv1gl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = ExtResource("2_e8p6n")
+
+[node name="Hazard" parent="." instance=ExtResource("3_bjlx4")]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hazard"]
+shape = SubResource("RectangleShape2D_e8p6n")

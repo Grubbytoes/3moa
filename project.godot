@@ -26,7 +26,6 @@ window/stretch/mode="viewport"
 [global_group]
 
 player="the player character object"
-enemy=""
 
 [input]
 

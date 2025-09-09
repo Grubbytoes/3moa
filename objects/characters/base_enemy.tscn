@@ -1,11 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://cago1gspn6vcd"]
+[gd_scene load_steps=5 format=3 uid="uid://ckcp7ym106vmu"]
 
-[ext_resource type="Texture2D" uid="uid://dumhw8y6j3dhv" path="res://media/textures/placeholders.png" id="1_eqqp1"]
-[ext_resource type="Script" uid="uid://bm85llbbepi7p" path="res://objects/characters/player.gd" id="1_ykyjo"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j6w7d"]
-radius = 8.0
-height = 22.0
+[ext_resource type="Script" uid="uid://63x6ucuu2yyw" path="res://objects/characters/non_player_character.gd" id="1_weaom"]
 
 [sub_resource type="Animation" id="Animation_h3hc8"]
 length = 0.001
@@ -46,22 +41,9 @@ _data = {
 &"invulnerable": SubResource("Animation_kaojo")
 }
 
-[node name="Player" type="CharacterBody2D" groups=["player"]]
-collision_layer = 4
-collision_mask = 129
-motion_mode = 1
-script = ExtResource("1_ykyjo")
-
-[node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("1_eqqp1")
-region_enabled = true
-region_rect = Rect2(32, 0, 32, 32)
-
-[node name="Collision" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_j6w7d")
-
-[node name="ShotTimer" type="Timer" parent="."]
-wait_time = 0.25
+[node name="BaseEnemy" type="CharacterBody2D"]
+script = ExtResource("1_weaom")
+metadata/_custom_type_script = "uid://63x6ucuu2yyw"
 
 [node name="CharacterAnimation" type="AnimationPlayer" parent="."]
 libraries = {
@@ -70,5 +52,4 @@ libraries = {
 
 [node name="InvulnerabilityTimer" type="Timer" parent="."]
 
-[connection signal="timeout" from="ShotTimer" to="." method="shot_ready"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_invulnerability_off"]

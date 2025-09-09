@@ -1,15 +1,18 @@
-extends Node2D
+extends ObjectPool
+
+const max_item_count = 16
 
 
 # This could be pulled out to its own resource ir
 var packed_items = {
-	"ore" : preload("res://objects/collectables/score_collectable.tscn")
+	"ore" : preload("res://objects/collectables/score_collectable.tscn"),
+	"air bubble" : preload("res://objects/collectables/air_bubble_collectable.tscn")
 }
 
-func drop_ore(coords: Vector2i):
-	var spawn_ore_item_at = Vector2(coords * 32) + Vector2(16, 16)
-	var ore_item = packed_items["ore"].instantiate()
-	ore_item.position = spawn_ore_item_at
 
+func drop_item(coords: Vector2i, key: String):
+	var spawn_item_at = Vector2(coords * 32) + Vector2(16, 16)
+	var item = packed_items[key].instantiate()
+	item.position = spawn_item_at
 
-	call_deferred("add_child", ore_item)
+	call_deferred("add_child", item)

@@ -1,7 +1,8 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://d2ieyjp1w6y7n"]
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://d2ieyjp1w6y7n"]
 
 [ext_resource type="Texture2D" uid="uid://b53shj75y2ijp" path="res://media/textures/blocks.png" id="1_uy2wx"]
 [ext_resource type="Texture2D" uid="uid://l7sf8bjjnpa5" path="res://media/textures/ores.png" id="2_6mr50"]
+[ext_resource type="PackedScene" uid="uid://di81ri17v17a8" path="res://objects/world_and_terrain/LavaBlock.tscn" id="3_aqnvc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6mr50"]
 texture = ExtResource("1_uy2wx")
@@ -17,18 +18,23 @@ texture = ExtResource("2_6mr50")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-0:0/0/custom_data_1 = 1
+0:0/0/custom_data_1 = "ore"
 1:0/0 = 0
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 1:0/0/custom_data_0 = 1
-1:0/0/custom_data_1 = 1
+1:0/0/custom_data_1 = "ore"
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_6mr50"]
+resource_name = "Environmental Hazards"
+scenes/1/scene = ExtResource("3_aqnvc")
 
 [resource]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 custom_data_layer_0/name = "hardness"
 custom_data_layer_0/type = 2
-custom_data_layer_1/name = "ore"
-custom_data_layer_1/type = 2
+custom_data_layer_1/name = "item"
+custom_data_layer_1/type = 4
 sources/0 = SubResource("TileSetAtlasSource_6mr50")
 sources/1 = SubResource("TileSetAtlasSource_aqnvc")
+sources/2 = SubResource("TileSetScenesCollectionSource_6mr50")

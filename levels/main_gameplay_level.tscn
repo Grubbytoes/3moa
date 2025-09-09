@@ -1,23 +1,26 @@
-[gd_scene load_steps=7 format=3 uid="uid://bm3347q0ewp43"]
+[gd_scene load_steps=8 format=3 uid="uid://bm3347q0ewp43"]
 
 [ext_resource type="PackedScene" uid="uid://bt4t6f8pxy33k" path="res://levels/base_level.tscn" id="1_dofnf"]
 [ext_resource type="Script" uid="uid://mi32wjrtchmh" path="res://levels/main_gameplay_level.gd" id="2_dofnf"]
 [ext_resource type="PackedScene" uid="uid://qucdfox2idic" path="res://objects/ui_elements/hud.tscn" id="3_dggrd"]
+[ext_resource type="PackedScene" uid="uid://h1sl54usdaxd" path="res://objects/ui_elements/pause_menu.tscn" id="3_llt50"]
 [ext_resource type="PackedScene" uid="uid://dflbtdvox7l8k" path="res://objects/world_and_terrain/world.tscn" id="5_suaay"]
 [ext_resource type="PackedScene" uid="uid://cago1gspn6vcd" path="res://objects/characters/player.tscn" id="6_dggrd"]
-[ext_resource type="PackedScene" uid="uid://b74fk7djfn7od" path="res://objects/game_master.tscn" id="7_llt50"]
+[ext_resource type="PackedScene" uid="uid://b74fk7djfn7od" path="res://objects/session_master.tscn" id="7_llt50"]
 
 [node name="MainGameplayLevel" instance=ExtResource("1_dofnf")]
 script = ExtResource("2_dofnf")
 
-[node name="Hud" parent="UILayer" index="0" instance=ExtResource("3_dggrd")]
+[node name="PauseMenu" parent="UILayer" index="0" instance=ExtResource("3_llt50")]
 
-[node name="Player" parent="." index="2" instance=ExtResource("6_dggrd")]
+[node name="Hud" parent="UILayer" index="1" instance=ExtResource("3_dggrd")]
+
+[node name="SessionMaster" parent="." index="2" instance=ExtResource("7_llt50")]
+
+[node name="World" parent="." index="3" node_paths=PackedStringArray("watch_player") instance=ExtResource("5_suaay")]
+watch_player = NodePath("Player")
+
+[node name="Player" parent="World" index="6" instance=ExtResource("6_dggrd")]
 position = Vector2(288, 48)
 
-[node name="GameMaster" parent="." index="3" instance=ExtResource("7_llt50")]
-
-[node name="World" parent="." index="4" node_paths=PackedStringArray("watch_player") instance=ExtResource("5_suaay")]
-watch_player = NodePath("../Player")
-
-[connection signal="exceeded_critical_velocity" from="Player" to="UILayer/Hud" method="critical_velocity"]
+[connection signal="exceeded_critical_velocity" from="World/Player" to="UILayer/Hud" method="critical_velocity"]
