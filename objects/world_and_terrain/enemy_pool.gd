@@ -4,7 +4,8 @@ const max_enemy_count = 16
 
 var packed_enemies = {
 	"dummy": preload("res://objects/characters/dummy_enemy.tscn"),
-	"floating": preload("res://objects/characters/floating_enemy.tscn")
+	"floating": preload("res://objects/characters/floating_enemy.tscn"),
+	"chaser": preload("res://objects/characters/chaser_enemy.tscn")
 }
 
 

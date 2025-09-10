@@ -6,12 +6,32 @@ signal item_spawned(coord: Vector2i, key: String)
 @export var terrain_layer: TerrainLayer
 @export var placement_threshold := .5
 
+# TODO
+const enemy_weights = [
+	["floating", 1, 0],
+	["chaser", 2, 4],
+	["sleeper", 2, 6]
+]
+
+# TODO
+const ore_weights = [
+	["copper", 2, 0],
+	["silver", 3, 4],
+	["silver", 5, 8],
+]
+
+## This value determines how "serious" the generated chunks will be - ie high or low risk/reward.
+## By default, this increments with each new chunk
+var depth_score := 0
+
 @onready var placement_noise := FastNoiseLite.new()
 @onready var hardness_noise := FastNoiseLite.new()
 @onready var noise_seed = randi()
 
-
 func _ready():
+	if not terrain_layer:
+		printerr("terrain_layer has not been set for world generator!")
+
 	placement_noise.seed = noise_seed
 	placement_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
 	placement_noise.frequency = .21
@@ -33,29 +53,18 @@ func generate_chunk(y_index = 0):
 	enemy_layer(y_offset)
 	bonus_layer(y_offset)
 
+	depth_score += 1
+
 
 func placement_layer(y_offset):
-	var layer = ChunkArray.new()
-
-	# first pass
-	for pos in ChunkArray.range():
-		# simple noise
-		var v = (placement_noise.get_noise_2d(pos.x, pos.y + y_offset) + 1) / 2
-
-		# increased towards the sides
-		var distance_from_margin = min(pos.x, ChunkTools.CHUNK_SIZE - 1 - pos.x)
-		if 3 > distance_from_margin:
-			v += (3 - distance_from_margin) * .5
-
-		if placement_threshold <= v:
-			layer.setv(pos, 1)
+	var raw_placement_layer = _generate_raw_placement_layer(y_offset)
 	
 	# second pass
 	# TODO
 
 	# Do the work
 	for pos in ChunkArray.range():
-		if 1 <= layer.getv(pos):
+		if 1 <= raw_placement_layer.getv(pos):
 			terrain_layer.place_tile(pos + Vector2i(0, y_offset))
 
 
@@ -81,18 +90,27 @@ func ore_layer(y_offset: int, no_ore_veins := 3):
 			no_ore_veins -= 1
 
 
-func enemy_layer(y_offset: int, no_enemies = 2):
-	while 0 < no_enemies:
-		var rand_coord = _random_empty_cell(y_offset)
-		enemy_spawned.emit(rand_coord, "floating")
-		no_enemies -= 1
+func enemy_layer(y_offset: int):
+	var enemy_score = 2 + floor(depth_score / 3)
+	var rand_coord = _random_empty_cell(y_offset)
 
+	while 0 < enemy_score:
+		enemy_score = _spawn_enemy(rand_coord, enemy_score)
+		rand_coord = _random_empty_cell(y_offset)
+		
 
 func bonus_layer(y_offset: int):
 	var rand_coord = _random_empty_cell(y_offset)
 	item_spawned.emit(rand_coord, "air bubble")
-	
 
+
+## Spawns an enemy with the given score 'budget', returns the new 'budget' after an enemy has been spawned.
+func _spawn_enemy(coord, score) -> int:
+	if 0 >= score:
+		return 0
+
+	enemy_spawned.emit(coord, "floating")
+	return score - 1
 
 ## Attempts to grow an ore vein of the given richness at the given coordinate. Will only place ore on top of existing tiles, according to TerrainLayer
 ## Returns how many ore tiles were successfully placed. 0 means no ore was placed.
@@ -113,3 +131,22 @@ func _random_empty_cell(y_offset: int):
 		rand_coord = ChunkTools.randcoord() + Vector2i(0, y_offset)
 	
 	return rand_coord
+
+
+func _generate_raw_placement_layer(y_offset: int) -> ChunkArray:
+	var layer = ChunkArray.new()
+	
+	# first pass
+	for pos in ChunkArray.range():
+		# simple noise
+		var v = (placement_noise.get_noise_2d(pos.x, pos.y + y_offset) + 1) / 2
+
+		# increased towards the sides
+		var distance_from_margin = min(pos.x, ChunkTools.CHUNK_SIZE - 1 - pos.x)
+		if 3 > distance_from_margin:
+			v += (3 - distance_from_margin) * .5
+
+		if placement_threshold <= v:
+			layer.setv(pos, 1)
+	
+	return layer

@@ -24,6 +24,7 @@ region_rect = Rect2(32, 32, 16, 16)
 shape = ExtResource("3_txu4p")
 
 [node name="Vision" type="Area2D" parent="." index="4"]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Vision" index="0"]
 shape = SubResource("SeparationRayShape2D_txu4p")
@@ -33,5 +34,3 @@ shape = SubResource("SeparationRayShape2D_txu4p")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hazard" index="0"]
 shape = SubResource("RectangleShape2D_cc8fq")
 debug_color = Color(0.968627, 0, 0.454902, 0)
-
-[connection signal="timeout" from="InvulnerabilityTimer" to="." method="_invulnerability_off"]
