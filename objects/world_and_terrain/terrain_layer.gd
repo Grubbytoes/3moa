@@ -5,12 +5,20 @@ signal item_spawned(coords: Vector2i, key: String)
 signal tile_hit(coords: Vector2i)
 signal tile_destroyed(coords: Vector2i)
 
+enum TileDamageResult {
+	DESTROYED,
+	DAMAGED,
+	NONE
+}
+
 static var TILE_SIZE = 32
 
 # TODO it may be a good idea to pull this out to its own class or node
 var tile_damage := {}
 var damage_manager := DamageManager.new()
 var effects_manager := EffectManager.new()
+
+@onready var cracks_layer := $CracksLayer as TileMapLayer
 
 func _ready():
 	add_child(damage_manager)
@@ -43,9 +51,13 @@ func hit_tile_at(point_of_collision: Vector2):
 		floor((point_of_collision.x - position.x) / TILE_SIZE),
 		floor((point_of_collision.y - position.y) / TILE_SIZE)
 	)
+	var try_destroy_tile_result := damage_manager.try_destroy_tile(hit_tile_coords)
 
-	if damage_manager.can_destroy_tile(hit_tile_coords):
+	if try_destroy_tile_result == TileDamageResult.DESTROYED:
 		destroy_tile(hit_tile_coords)
+	elif try_destroy_tile_result == TileDamageResult.DAMAGED:
+		print("cracking")
+		cracks_layer.set_cell(hit_tile_coords, 1, Vector2i.ZERO)
 
 
 ## Destroys the tile at the given coordinates, if one exist. If this is a special tile (like ore) the logic for that
@@ -64,6 +76,7 @@ func destroy_tile(coords) -> bool:
 		item_spawned.emit(coords, item)
 
 	erase_cell(coords)
+	cracks_layer.erase_cell(coords)
 	tile_destroyed.emit(coords)
 
 	return true
@@ -82,17 +95,22 @@ class DamageManager extends Node:
 
 	## Returns true of the tile at the given coordinates (if one exists) is sufficiently damaged
 	## that it can be destroyed.
-	func can_destroy_tile(key_coords: Vector2i) -> bool:
+	## Otherwise decrements that tile's hardness
+	func try_destroy_tile(key_coords: Vector2i) -> TileDamageResult:
 		var damaged_hardness = damage_map.get(key_coords, get_initial_hardness(key_coords))
 		
-		if 0 < damaged_hardness:
-			damage_map.set(key_coords, damaged_hardness - 1)
-			return false
-		else:
+		# Tile destroyed
+		if 0 == damaged_hardness:
 			damage_map.erase(key_coords)
-			return true
-	
+			return TileDamageResult.DESTROYED
+		# Tile damaged
+		elif 0 < damaged_hardness:
+			damage_map.set(key_coords, damaged_hardness - 1)
+			return TileDamageResult.DAMAGED
+		else:
+			return TileDamageResult.NONE
 
+	
 	## Resets the damage of the given tile - clearing references to it in the damage map
 	func reset_tile_damage(key_coords: Vector2i):
 		damage_map.erase(key_coords)
